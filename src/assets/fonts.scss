@@ -1,0 +1,44 @@
+/* WorkSans-Regular 400 */
+@font-face {
+  font-family: 'WorkSans-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/WorkSans-Regular.ttf') format('truetype');
+}
+
+/* WorkSans-Medium 500 */
+@font-face {
+  font-family: 'WorkSans-Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/WorkSans-Medium.ttf') format('truetype');
+}
+
+/* WorkSans-SemiBold 600 */
+@font-face {
+  font-family: 'WorkSans-SemiBold';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/WorkSans-SemiBold.ttf') format('truetype');
+}
+
+/* WorkSans-Bold 700 */
+@font-face {
+  font-family: 'WorkSans-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/WorkSans-Bold.ttf') format('truetype');
+}
+
+body {
+  margin: 0;
+  font-family:
+    'WorkSans',
+    sans-serif,
+    -apple-system,
+    BlinkMacSystemFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px !important;
+  font-weight: 400;
+}
