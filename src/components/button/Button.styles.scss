@@ -1,0 +1,19 @@
+.button {
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  padding: 14px 22px;
+
+  border: none;
+  border-radius: 40px;
+  background-color: #2dd08c;
+}
+
+.button-label {
+  font-family: 'WorkSans-Medium';
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
