@@ -1,5 +1,7 @@
 import React from 'react';
 
-const App = () => <p>Shopping Cart</p>;
+import ShoppingCart from 'screens/shopping-cart/ShoppingCart';
+
+const App = () => <ShoppingCart />;
 
 export default App;

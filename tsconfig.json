@@ -15,7 +15,9 @@
     "moduleResolution": "node",
     "downlevelIteration": true,
     "paths": {
-      "components/*": ["src/components/*"]
+      "components/*": ["src/components/*"],
+      "screens/*": ["src/screens/*"],
+      "services/*": ["src/services/*"]
     }
   },
   "include": ["./src", "./webpack.config.ts"]

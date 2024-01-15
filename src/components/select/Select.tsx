@@ -3,9 +3,23 @@ import React, { FC } from 'react';
 import { SelectProps } from './Select.types';
 import './Select.styles.scss';
 
-const Select: FC<SelectProps> = ({ isDisabled, options, placeholder }) => {
+const Select: FC<SelectProps> = ({
+  name,
+  isDisabled,
+  options,
+  placeholder,
+  className,
+  value,
+  onChange,
+}) => {
   return (
-    <select className="select-container" disabled={isDisabled}>
+    <select
+      name={name}
+      className={className ? `select-container ${className}` : `select-container`}
+      disabled={isDisabled}
+      value={value}
+      onChange={onChange}
+    >
       <option hidden disabled selected value={undefined}>
         {placeholder}
       </option>
