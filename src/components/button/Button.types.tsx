@@ -1,5 +1,11 @@
+export enum ButtonTypes {
+  Text = 'text',
+  Default = 'default',
+}
 export interface ButtonProps {
+  type?: 'button' | 'reset' | 'submit';
   label: string;
   isDisabled?: boolean;
-  onClick: () => void;
+  variant?: ButtonTypes;
+  onClick?: () => void;
 }
