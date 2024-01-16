@@ -20,5 +20,6 @@
       "services/*": ["src/services/*"]
     }
   },
-  "include": ["./src", "./webpack.config.ts"]
+  "include": ["./src", "./webpack.config.ts"],
+  "exclude": ["node_modules"]
 }

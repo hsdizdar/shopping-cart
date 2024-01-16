@@ -2,7 +2,7 @@ import { DynamicType } from 'src/constants/types';
 
 export interface SelectProps {
   name?: string;
-  options: { label: string; value: DynamicType }[];
+  options: DynamicType[];
   isDisabled?: boolean;
   placeholder?: string;
   className?: string;

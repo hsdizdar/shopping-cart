@@ -21,12 +21,7 @@ const Button: FC<ButtonProps> = ({
     onClick={onClick}
     {...props}
   >
-    <Text
-      tagName={TextTagName.Label}
-      className={variant === ButtonTypes.Text ? 'text-button-label' : 'default-button-label'}
-    >
-      {label}
-    </Text>
+    {label}
   </button>
 );
 

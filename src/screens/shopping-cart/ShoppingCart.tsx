@@ -1,4 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import Card from 'components/card/Card';
 import Text from 'components/text/Text';
@@ -8,21 +10,36 @@ import Button from 'components/button/Button';
 import { TextTagName } from 'components/text/Text.types';
 import { ButtonTypes } from 'components/button/Button.types';
 
-import { shops } from 'services/index';
+import { RootState } from 'src/store/reducers';
+import { addToCart, removeFromCart } from 'src/store/reducers/shopCartReducer';
 
-import { FormData } from './ShoppingCart.types';
+import { ShopCartType } from './ShoppingCart.types';
 import './ShoppingCart.styles.scss';
+import { Shop, getShops } from 'services/index';
 
 const ShoppingCart: FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const dispatch = useDispatch();
+  const shopCartItems = useSelector((state: RootState) => state.shopCart.items);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [options, setOptions] = useState<Shop[]>([]);
+  const [formData, setFormData] = useState<ShopCartType>({
+    id: 0,
     productName: '',
-    productOwner: '',
+    shop: undefined,
   });
 
-  const options = shops.map((item) => ({
-    label: item.name,
-    value: item.id,
-  }));
+  useEffect(() => {
+    init();
+  }, []);
+
+  const init = async () => {
+    setIsLoading(true);
+    const shops = await getShops();
+    setIsLoading(false);
+    setOptions(shops);
+  };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -32,57 +49,94 @@ const ShoppingCart: FC = () => {
   };
 
   const handleChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedShop = options.find((shop) => shop.id === e.target.value);
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      shop: selectedShop,
     });
+  };
+
+  const handleDelete = (item: ShopCartType) => {
+    dispatch(removeFromCart(item.id));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('formData', formData);
+
+    if (formData.productName && formData.shop) {
+      setShowError(false);
+      dispatch(addToCart(formData));
+      setFormData({
+        id: formData.id + 1,
+        productName: '',
+        shop: undefined,
+      });
+    } else {
+      setShowError(true);
+    }
   };
 
+  if (isLoading) {
+    return <Text className="loading">Loading...</Text>;
+  }
+
   return (
-    <form className="container" onSubmit={handleSubmit}>
+    <div className="container">
       <Card>
         <Text className="title">Add to cart:</Text>
         <div className="form-content">
-          <Input
-            name="productName"
-            value={formData.productName}
-            className="product-name-input"
-            placeholder="Name"
-            onChange={handleChangeInput}
-          />
-          <Select
-            name="productOwner"
-            value={formData.productOwner}
-            className="product-owner-select"
-            placeholder="Select shop"
-            options={options}
-            onChange={handleChangeSelect}
-          />
-          <Button label="Add" type="submit" />
+          <form onSubmit={handleSubmit}>
+            <Input
+              name="productName"
+              value={formData.productName}
+              className="product-name-input"
+              placeholder="Name"
+              onChange={handleChangeInput}
+            />
+            <Select
+              name="shop"
+              value={formData.shop ? formData.shop.id : ''}
+              className="product-owner-select"
+              placeholder="Select shop"
+              options={options}
+              onChange={handleChangeSelect}
+            />
+            <Button label="Add" type="submit" />
+          </form>
         </div>
+        {showError ? (
+          <Text className="error-message">The above fields are required, please fill them in.</Text>
+        ) : null}
         <ul className="list-container">
-          {shops.map((item, index) => (
-            <li
-              key={`${item.id}-${index}`}
-              className={`list-item ${index % 2 === 0 ? 'even' : 'odd'}`}
-            >
-              <Text className="product-name" tagName={TextTagName.Span}>
-                {item.name}
-              </Text>
-              <Text className="product-owner-name" tagName={TextTagName.Span}>
-                {item.name}
-              </Text>
-              <Button label="Delete" variant={ButtonTypes.Text} onClick={() => {}} />
-            </li>
-          ))}
+          {[...shopCartItems]
+            .sort((a, b) => a.shop.sortOrder - b.shop.sortOrder)
+            .map((item, index) => (
+              <li
+                key={`${item.shop.id}-${index}`}
+                className={`list-item ${index % 2 === 0 ? 'even' : 'odd'}`}
+              >
+                <div className="column">
+                  <Text className="product-name" tagName={TextTagName.Span}>
+                    {item.productName}
+                  </Text>
+                </div>
+                <div className="column">
+                  <Text className="product-owner-name" tagName={TextTagName.Span}>
+                    {item.shop.name}
+                  </Text>
+                </div>
+                <div className="column">
+                  <Button
+                    label="Delete"
+                    variant={ButtonTypes.Text}
+                    onClick={() => handleDelete(item)}
+                  />
+                </div>
+              </li>
+            ))}
         </ul>
       </Card>
-    </form>
+    </div>
   );
 };
 
