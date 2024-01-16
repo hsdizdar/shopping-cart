@@ -1,0 +1,22 @@
+.select-container {
+  width: 274px !important;
+  padding: 14px 20px;
+  border: 2px solid #ecedee;
+  border-radius: 12px;
+  background-color: #fff;
+  font-family: 'WorkSans-Regular';
+  font-size: 16px;
+  color: #273348;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: url('src/assets/images/arrow.png');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+
+  &:focus {
+    outline: none;
+  }
+}

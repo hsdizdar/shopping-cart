@@ -1,0 +1,30 @@
+.default-button {
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 40px;
+  background-color: #2dd08c;
+  cursor: pointer;
+  font-family: 'WorkSans-Medium';
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+.text-button {
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 14px 22px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'WorkSans-Medium';
+  font-size: 16px;
+  color: #f54436;
+  text-align: center;
+}
