@@ -1,4 +1,7 @@
-export interface FormData {
+import { Shop } from 'services/index';
+
+export interface ShopCartType {
+  id: number;
   productName: string;
-  productOwner: string;
+  shop: Shop;
 }
