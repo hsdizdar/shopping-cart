@@ -1,7 +1,5 @@
 # shopping-cart
 
-Onoff Telecom Test Assignment
-
 ## Getting Started
 
 1. Clone this repo, `git clone https://github.com/hsdizdar/shopping-cart.git`
